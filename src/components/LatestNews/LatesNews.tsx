@@ -1,27 +1,24 @@
+import { useEffect, useState } from "react";
+import RollingNews from "./LollingNews/LollingNews";
+
 interface Props {
-	margin?: string;
+	news: News[];
 }
 
-function News({ margin = "" }: Props) {
-	return (
-		<div
-			className={`my-1 p-2 w-1/2 ${margin} border-2 border-customGray bg-customGray flex items-center`}
-		>
-			<span className="mx-2 text-sm font-bold dark:text-white">연합뉴스</span>
-			<div className="mx-2 flex">
-				<a className="cursor-pointer hover:underline font-light pb-1 dark:text-white/80">
-					sssssssssss
-				</a>
-			</div>
-		</div>
-	);
-}
+const NEWS_NUM = 50;
 
-function LatesNews() {
+const randomIdx = () => ~~(Math.random() * NEWS_NUM);
+const getNewsHeadlines = (news: News[]) =>
+	Array.from({ length: 3 }, () => news[randomIdx()].headline);
+
+function LatesNews({ news }: Props) {
+	const [newsHeadline, setNewsHeadline] = useState<Headline[]>([]);
+	useEffect(() => setNewsHeadline(getNewsHeadlines(news)), []); //지금 뉴스값 같아
+
 	return (
 		<section className="flex">
-			<News margin="mr-4" />
-			<News />
+			<RollingNews margin="mr-4" newsHeadline={newsHeadline} />
+			<RollingNews newsHeadline={newsHeadline} />
 		</section>
 	);
 }
