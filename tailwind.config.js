@@ -22,6 +22,12 @@ module.exports = {
 					"50%": { transform: "rotate(10deg)" },
 				},
 			},
+			borderColor: {
+				customGray: "rgba(177,177,177, 0.3)",
+			},
+			backgroundColor: {
+				customGray: " rgba(177,177,177, 0.2)",
+			},
 		},
 	},
 	plugins: [],
