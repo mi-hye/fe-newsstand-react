@@ -15,11 +15,23 @@ module.exports = {
 			},
 			animation: {
 				wiggle: "wiggle 1s ease-in-out infinite",
+				rolling: "rolling 10s cubic-bezier(0.22, 0.7, 1, 1.01) forwards infinite",
 			},
 			keyframes: {
 				wiggle: {
 					"0%, 100%": { transform: "rotate(-10deg)" },
 					"50%": { transform: "rotate(10deg)" },
+				},
+				rolling: {
+					"0%": {
+						transform: "translateY(250%)",
+					},
+					"10%,40%": {
+						transform: "translateY(0)",
+					},
+					"50%,100%": {
+						transform: "translateY(-240%)",
+					},
 				},
 			},
 			borderColor: {
