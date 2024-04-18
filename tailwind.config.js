@@ -11,8 +11,8 @@ module.exports = {
 				600: "600px",
 			},
 			colors: {
-				"news-blue": "#4361cf",
 				"font-color": "rgba(148,148,148, 0.8)",
+				"news-blue": "#4361cf",
 			},
 			animation: {
 				wiggle: "wiggle 1s ease-in-out infinite",
