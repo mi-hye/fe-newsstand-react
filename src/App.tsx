@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import LatesNews from "./components/LatestNews/LatesNews";
+import Main from "./components/Main/Tab";
 
 const NEWS_NUM = 50;
 
@@ -18,7 +19,7 @@ function App() {
 			<div className="w-1000 h-600">
 				<Header />
 				{news ? <LatesNews news={news.slice(0, NEWS_NUM)} /> : <div>데이터를 불러오지 못했음</div>}
-				<div>늉</div>
+				<Main></Main>
 			</div>
 		</div>
 	);
