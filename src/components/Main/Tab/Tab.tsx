@@ -9,7 +9,7 @@ interface Props {
 	state: VeiwState;
 }
 
-const bold = "font-extrabold text-news-black";
+const bold = "font-extrabold text-black";
 
 function Tab({ dispatch, state }: Props) {
 	return (

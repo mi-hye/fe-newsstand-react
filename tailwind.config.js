@@ -11,7 +11,7 @@ module.exports = {
 				600: "600px",
 			},
 			colors: {
-				"font-color": "rgba(148,148,148, 0.8)",
+				"news-gray": "rgba(148,148,148, 0.8)",
 				"news-blue": "#4361cf",
 			},
 			animation: {
