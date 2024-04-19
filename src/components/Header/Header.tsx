@@ -11,9 +11,12 @@ const toggleDarkMode = () => document.body.classList.toggle("dark");
 function Header() {
 	return (
 		<header className="my-7 w-full flex justify-between items-center">
-			<a href="#" className="dark:text-white font-extrabold text-xl">
+			<button
+				className="dark:text-white font-extrabold text-xl"
+				onClick={() => window.location.reload()}
+			>
 				<i className="fa-solid fa-newspaper mr-2 text-news-blue"></i>뉴스스탠드
-			</a>
+			</button>
 			<i
 				onClick={toggleDarkMode}
 				className="fa-solid fa-moon text-2xl cursor-pointer hover:animate-wiggle transition-colors dark:text-yellow-400"
