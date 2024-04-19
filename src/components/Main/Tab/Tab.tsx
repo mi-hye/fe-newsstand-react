@@ -9,7 +9,7 @@ interface Props {
 	state: VeiwState;
 }
 
-const bold = "font-extrabold text-black";
+const bold = "font-extrabold text-black dark:text-white ";
 
 function Tab({ dispatch, state }: Props) {
 	return (
@@ -31,12 +31,12 @@ function Tab({ dispatch, state }: Props) {
 			<div className="flex items-center">
 				<i
 					className={`fas fa-th-large cursor-pointer text-xl ${
-						state.display === "grid" ? "text-news-blue" : "text-news-gray "
+						state.display === "grid" ? "text-news-blue " : "text-news-gray"
 					}`}
 					onClick={() => dispatch({ type: "grid" })}
 				></i>
 				<i
-					className={`fa-solid fa-list cursor-pointer text-xl mx-4 ${
+					className={`fa-solid fa-list cursor-pointer text-xl ml-4 ${
 						state.display === "list" ? "text-news-blue" : "text-news-gray "
 					}`}
 					onClick={() => dispatch({ type: "list" })}
