@@ -6,6 +6,10 @@ import TotalList from "./List/TotalList";
 import Tab from "./Tab/Tab";
 import Swiper from "./Swiper/Swiper";
 
+interface Props {
+	news: News[];
+}
+
 interface VeiwState {
 	media: string;
 	display: string;
@@ -29,14 +33,14 @@ function reducer(state: VeiwState, action: Action): VeiwState {
 	}
 }
 
-function Main() {
+function Main({ news }: Props) {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	return (
 		<>
 			<Tab dispatch={dispatch} state={state} />
-			<div className="mt-4 h-[450px] border-2 border-customGray">
-				{state.media === "total" && state.display === "grid" && <TotalGrid />}
+			<div className="mt-4 h-[400px] border-t-2 border-l-2 border-customGray dark:border-white/40">
+				{state.media === "total" && state.display === "grid" && <TotalGrid news={news} />}
 				{state.media === "sub" && state.display === "grid" && <SubGrid />}
 				{state.media === "total" && state.display === "list" && <TotalList />}
 				{state.media === "sub" && state.display === "list" && <SubList />}
