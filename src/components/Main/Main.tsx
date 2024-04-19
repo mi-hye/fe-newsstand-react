@@ -4,6 +4,7 @@ import TotalGrid from "./Grid/TotalGrid";
 import SubList from "./List/SubList";
 import TotalList from "./List/TotalList";
 import Tab from "./Tab/Tab";
+import Swiper from "./Swiper/Swiper";
 
 interface VeiwState {
 	media: string;
@@ -40,6 +41,7 @@ function Main() {
 				{state.media === "total" && state.display === "list" && <TotalList />}
 				{state.media === "sub" && state.display === "list" && <SubList />}
 			</div>
+			<Swiper />
 		</>
 	);
 }
