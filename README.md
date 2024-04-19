@@ -1,4 +1,9 @@
 # fe-newsstand-react
+
+# ⚙️기술 스택
+
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black">
+
 ## 🚩구현 목록
 
 - [ ] 1. 기본화면
@@ -68,6 +73,12 @@
 
 - [ ] foundation의 컬러 팔레트 정보를 활용해 다크 모드 테마를 자율적으로 만들어보자
 
+---
 
------
+### 메모
 
+- 리액트 훅은 비동기 적으로 실행된다. 
+- state 값은 불변성을 유지하기 위해 직접 참조해서 값을 변경 할 수 없다.
+
+- tailwind에서 사용자가 정의한 커스텀 색상이 기본 색상보다 우선시 된다
+- 커스텀 색상에서는 아래에 선언한게 먼저 적용 된다(캐스캐이딩 됨)
