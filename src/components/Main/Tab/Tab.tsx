@@ -9,17 +9,20 @@ interface Props {
 	state: VeiwState;
 }
 
-const bold = "font-extrabold text-black";
+const bold = "font-extrabold text-news-black";
 
 function Tab({ dispatch, state }: Props) {
 	return (
 		<nav className="my-3 flex justify-between w-full">
 			<div className="flex items-center">
-				<div className="text-font-color cursor-pointer" onClick={() => dispatch({ type: "total" })}>
+				<div
+					className={`cursor-pointer ${state.media === "total" ? bold : "text-news-gray"}`}
+					onClick={() => dispatch({ type: "total" })}
+				>
 					전체 언론사
 				</div>
 				<div
-					className="ml-4 text-font-color cursor-pointer"
+					className={`ml-4 cursor-pointer ${state.media === "sub" ? bold : "text-news-gray"}`}
 					onClick={() => dispatch({ type: "sub" })}
 				>
 					내가 구독한 언론사
@@ -27,11 +30,15 @@ function Tab({ dispatch, state }: Props) {
 			</div>
 			<div className="flex items-center">
 				<i
-					className="fas fa-th-large cursor-pointer text-xl text-font-color text-news-blue"
+					className={`fas fa-th-large cursor-pointer text-xl ${
+						state.display === "grid" ? "text-news-blue" : "text-news-gray "
+					}`}
 					onClick={() => dispatch({ type: "grid" })}
 				></i>
 				<i
-					className="fa-solid fa-list cursor-pointer text-xl mx-4 text-font-color"
+					className={`fa-solid fa-list cursor-pointer text-xl mx-4 ${
+						state.display === "list" ? "text-news-blue" : "text-news-gray "
+					}`}
 					onClick={() => dispatch({ type: "list" })}
 				></i>
 			</div>
