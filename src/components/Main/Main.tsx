@@ -14,6 +14,11 @@ interface VeiwState {
 	media: string;
 	display: string;
 }
+
+interface VeiwStateMap {
+	[key: string]: (news: News[]) => JSX.Element;
+}
+
 type Action = { type: "total" } | { type: "sub" } | { type: "grid" } | { type: "list" };
 
 const initialState = { media: "total", display: "grid" };
@@ -33,6 +38,13 @@ function reducer(state: VeiwState, action: Action): VeiwState {
 	}
 }
 
+const veiwStateMap: VeiwStateMap = {
+	"total-grid": (news: News[]) => <TotalGrid news={news} />,
+	"sub-grid": () => <SubGrid />,
+	"total-list": () => <TotalList />,
+	"sub-list": () => <SubList />,
+};
+
 function Main({ news }: Props) {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -40,10 +52,7 @@ function Main({ news }: Props) {
 		<>
 			<Tab dispatch={dispatch} state={state} />
 			<div className="mt-4 h-[400px] border-t-2 border-l-2 border-customGray dark:border-white/40">
-				{state.media === "total" && state.display === "grid" && <TotalGrid news={news} />}
-				{state.media === "sub" && state.display === "grid" && <SubGrid />}
-				{state.media === "total" && state.display === "list" && <TotalList />}
-				{state.media === "sub" && state.display === "list" && <SubList />}
+				{veiwStateMap[`${state.media}-${state.display}`](news)}
 			</div>
 			<Swiper />
 		</>
