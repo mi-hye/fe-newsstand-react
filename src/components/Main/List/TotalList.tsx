@@ -1,5 +1,11 @@
+import CategoryTab from "./CategoryTab";
+
 function TotalList() {
-	return <div>토탈리스트임</div>;
+	return (
+		<div className=" border-2 border-customGray dark:border-white/40 h-full">
+			<CategoryTab />
+		</div>
+	);
 }
 
 export default TotalList;
