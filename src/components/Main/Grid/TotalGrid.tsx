@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Swiper from "./Swiper";
+import { NewsContext } from "../../../NewsProvider";
 
 //TODO 구독하기 만들어야함
 function subscribe({ target }: React.MouseEvent<HTMLElement>) {
 	const $target = target as HTMLElement;
 	if ($target.tagName === "BUTTON") console.log($target);
-}
-
-interface Props {
-	news: News[];
 }
 
 const GRID_TOTAL_NUM = 96;
@@ -18,11 +15,13 @@ const ZERO = 0;
 const getTotalGridNews = (news: News[]) =>
 	news.slice(ZERO, GRID_TOTAL_NUM).sort(() => Math.random() - 0.5);
 
-function TotalGrid({ news }: Props) {
+function TotalGrid() {
+	const [news] = useContext(NewsContext);
 	const [currentPage, setCurrentPage] = useState<number>(ZERO);
+	if (!news.length) return <></>;
+
 	const startIdx = currentPage * CELL_COUNT;
 	const gridNews = getTotalGridNews(news);
-
 	return (
 		<>
 			<div

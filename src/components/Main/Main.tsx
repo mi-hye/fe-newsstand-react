@@ -6,35 +6,29 @@ import Tab from "./Tab/Tab";
 import { useContext } from "react";
 import { ViewContext, ViewProvider } from "./ViewProvider";
 
-interface Props {
-	news: News[];
-}
-
 interface VeiwStateMap {
-	[key: string]: (news: News[]) => JSX.Element;
+	[key: string]: () => JSX.Element;
 }
 
 const veiwStateMap: VeiwStateMap = {
-	"total-grid": (news: News[]) => <TotalGrid news={news} />,
+	"total-grid": () => <TotalGrid />,
 	"sub-grid": () => <SubGrid />,
 	"total-list": () => <TotalList />,
 	"sub-list": () => <SubList />,
 };
 
-function Main({ news }: Props) {
+function Main() {
 	return (
 		<ViewProvider>
 			<Tab />
-			<ContentView news={news} />
+			<ContentView />
 		</ViewProvider>
 	);
 }
 
-function ContentView({ news }: Props) {
+function ContentView() {
 	const [state] = useContext(ViewContext);
-	return (
-		<div className="mt-4 h-[400px]">{veiwStateMap[`${state.media}-${state.display}`](news)}</div>
-	);
+	return <div className="mt-4 h-[400px]">{veiwStateMap[`${state.media}-${state.display}`]()}</div>;
 }
 
 export default Main;

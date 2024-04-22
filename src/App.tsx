@@ -1,26 +1,17 @@
-import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import LatesNews from "./components/LatestNews/LatesNews";
 import Main from "./components/Main/Main";
-
-const SERVER = process.env.REACT_APP_JSON_SERVER;
-const NEWS_NUM = 50;
+import { NewsProvider } from "./NewsProvider";
 
 function App() {
-	const [news, setNews] = useState<News[] | undefined>();
-	useEffect(() => {
-		fetch(`${SERVER}/news`)
-			.then((res) => res.json())
-			.then((news) => setNews(news))
-			.catch((err) => console.error(err));
-	}, []);
-
 	return (
 		<div className="flex justify-center items-center w-screen h-screen dark:bg-slate-950">
 			<div className="w-1000 h-600">
 				<Header />
-				{news ? <LatesNews news={news.slice(0, NEWS_NUM)} /> : <div>데이터를 불러오지 못했음</div>}
-				{news ? <Main news={news}></Main> : <div>데이터를 불러오지 못했음</div>}
+				<NewsProvider>
+					<LatesNews />
+					<Main></Main>
+				</NewsProvider>
 			</div>
 		</div>
 	);
