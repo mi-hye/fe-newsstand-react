@@ -11,6 +11,7 @@ interface SideNews {
 
 interface News {
 	id: string;
+	subscription: boolean;
 	pressName: string;
 	logoImageSrc: string;
 	editedTime: string;
