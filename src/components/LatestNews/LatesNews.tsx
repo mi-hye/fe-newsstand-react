@@ -1,14 +1,19 @@
+import { useContext } from "react";
+import { NewsContext } from "../../NewsProvider";
 import RollingNews from "./RollingNews/RollingNews";
 
-interface Props {
-	news: News[];
-}
-
-function LatesNews({ news }: Props) {
+function LatesNews() {
+	const [news] = useContext(NewsContext);
 	return (
 		<section className="flex">
-			<RollingNews margin="mr-4" news={news} />
-			<RollingNews news={news} />
+			{news.length ? (
+				<>
+					<RollingNews margin="mr-4" news={news.slice(0, 50)} />
+					<RollingNews news={news.slice(0, 50)} />
+				</>
+			) : (
+				<div>데이터를 불러오지 못했음</div>
+			)}
 		</section>
 	);
 }

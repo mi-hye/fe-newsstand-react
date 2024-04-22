@@ -23,7 +23,7 @@ const randomIdx = () => ~~(Math.random() * NEWS_NUM);
 const getNewsHeadlines = (news: News[]) =>
 	Array.from({ length: 2 }, () => news[randomIdx()].headline);
 const updateTop = (newsHeadline: Headline[], news: News[], setNewsHeadline: ReactDispatch) => {
-	const [_, second] = newsHeadline;
+	const [, second] = newsHeadline;
 	setNewsHeadline([news[randomIdx()].headline, second]);
 	// const updatedHeadline =
 	// newsHeadline.push(news[randomIdx()].headline);
@@ -33,6 +33,7 @@ const updateTop = (newsHeadline: Headline[], news: News[], setNewsHeadline: Reac
 // 	setNewsHeadline([first, news[randomIdx()].headline]);
 // };
 
+//FIXME refactoring 예정
 function RollingNews({ margin = "", news }: Props) {
 	const [newsHeadline, setNewsHeadline] = useState<Headline[]>([]);
 	useEffect(() => setNewsHeadline(getNewsHeadlines(news)), []);
