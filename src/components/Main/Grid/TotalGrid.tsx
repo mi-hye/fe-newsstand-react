@@ -1,6 +1,12 @@
 import { useState } from "react";
 import Swiper from "./Swiper";
 
+//TODO 구독하기 만들어야함
+function subscribe({ target }: React.MouseEvent<HTMLElement>) {
+	const $target = target as HTMLElement;
+	if ($target.tagName === "BUTTON") console.log($target);
+}
+
 interface Props {
 	news: News[];
 }
@@ -19,7 +25,10 @@ function TotalGrid({ news }: Props) {
 
 	return (
 		<>
-			<div className=" border-t-2 border-l-2 border-customGray dark:border-white/40 h-full grid grid-rows-4 grid-cols-6">
+			<div
+				onClick={subscribe}
+				className=" border-t-2 border-l-2 border-customGray dark:border-white/40 h-full grid grid-rows-4 grid-cols-6"
+			>
 				{Array.from({ length: CELL_COUNT }).map((_, i) => {
 					const currNews = gridNews[startIdx + i];
 					return (
@@ -32,7 +41,10 @@ function TotalGrid({ news }: Props) {
 								src={currNews.logoImageSrc}
 								alt={currNews.pressName}
 							></img>
-							<button className="absolute opacity-0 text-gray-400 group-hover:opacity-100 border-2 text-xs rounded-xl px-2 py-0.5 bg-white dark:bg-white/100">
+							<button
+								id={currNews.id}
+								className="absolute opacity-0 text-gray-400 group-hover:opacity-100 border-2 text-xs rounded-xl px-2 py-0.5 bg-white dark:bg-white/100"
+							>
 								{currNews.subscription ? "해지하기" : "+"}
 							</button>
 						</div>
