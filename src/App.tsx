@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import LatesNews from "./components/LatestNews/LatesNews";
-import Main from "./components/Main/Tab";
+import Main from "./components/Main/Main";
 
+const SERVER = process.env.REACT_APP_JSON_SERVER;
 const NEWS_NUM = 50;
 
 function App() {
 	const [news, setNews] = useState<News[] | undefined>();
 	useEffect(() => {
-		fetch(`http://localhost:3001/news`)
+		fetch(`${SERVER}/news`)
 			.then((res) => res.json())
 			.then((news) => setNews(news))
 			.catch((err) => console.error(err));
@@ -19,7 +20,7 @@ function App() {
 			<div className="w-1000 h-600">
 				<Header />
 				{news ? <LatesNews news={news.slice(0, NEWS_NUM)} /> : <div>데이터를 불러오지 못했음</div>}
-				<Main></Main>
+				{news ? <Main news={news}></Main> : <div>데이터를 불러오지 못했음</div>}
 			</div>
 		</div>
 	);
