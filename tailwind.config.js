@@ -17,6 +17,7 @@ module.exports = {
 			animation: {
 				wiggle: "wiggle 1s ease-in-out infinite",
 				rolling: "rolling 10s cubic-bezier(0.22, 0.7, 1, 1.01) forwards infinite",
+				fill: "fill 6s linear infinite",
 			},
 			keyframes: {
 				wiggle: {
@@ -32,6 +33,14 @@ module.exports = {
 					},
 					"50%,100%": {
 						transform: "translateY(-240%)",
+					},
+				},
+				fill: {
+					from: {
+						width: "0",
+					},
+					to: {
+						width: "100%",
 					},
 				},
 			},

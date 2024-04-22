@@ -14,23 +14,28 @@ const TotalCategory = ({ currCategory }: Props) => {
 		"매거진/전문지",
 		"지역",
 	];
-	const style = "pr-12 text-white bg-news-blue/40";
+	const style = "pr-14 text-white bg-news-blue/40";
 	return (
 		<>
 			{categories.map((category, i) => (
 				<li
-					className={`mr-2 cursor-pointer transition-[padding] ease-in-out duration-500 ${
+					className={`relative mr-2 cursor-pointer transition-[padding] ease-in-out duration-500 ${
 						category === currCategory ? style : ""
 					}`}
 					key={i}
 				>
 					<span
-						className={`text-news-gray text-sm flex m-2 ${
+						className={`relative text-news-gray text-sm flex m-2 z-10 ${
 							category === currCategory ? "text-white" : ""
 						}`}
 					>
 						{category}
 					</span>
+					{category === currCategory ? (
+						<span className="absolute top-0 h-full z-0 bg-news-blue w-full animate-fill"></span>
+					) : (
+						""
+					)}
 				</li>
 			))}
 		</>
