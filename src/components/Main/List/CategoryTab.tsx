@@ -48,7 +48,7 @@ const TotalCategory = ({ currentPage, currCategory, categoryLength }: CategoryPr
 					{category === currCategory ? (
 						<>
 							<div className="absolute top-[10px] right-2 z-10 text-[10px]">
-								<span>{currentPage + 1}</span>
+								<span>{currentPage + 1 - categoryLength[currCategory].startIdx}</span>
 								<span> / {categoryLength[currCategory].length}</span>
 							</div>
 							<span className="absolute top-0 h-full z-0 bg-news-blue w-full animate-fill"></span>
