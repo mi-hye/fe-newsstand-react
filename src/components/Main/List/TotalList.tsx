@@ -13,7 +13,7 @@ function TotalList() {
 	if (!news.length) return <></>;
 	return (
 		<>
-			<div className=" border-2 border-customGray dark:border-white/40 h-full">
+			<div className="border-2 border-customGray dark:border-white/40 h-full">
 				<CategoryTab />
 				<SingleNews singleNews={news[currentPage]}></SingleNews>
 			</div>

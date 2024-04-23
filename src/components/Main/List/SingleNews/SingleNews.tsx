@@ -23,14 +23,14 @@ function SingleNews({ singleNews }: Props) {
 					<a href={headline.href}>
 						<img className="w-[330px]" src={headline.thumbnailSrc} alt={pressName}></img>
 					</a>
-					<a className="w-[330px] font-bold my-3 text-sm" href={headline.href}>
+					<a className="w-[330px] font-bold my-3 text-sm dark:text-white" href={headline.href}>
 						{headline.title}
 					</a>
 				</div>
 				<ul className="h-full w-[60%] mx-4">
 					{sideNews.map((news, i) => (
 						<li key={i} className={`${i > 0 ? "my-4" : ""}`}>
-							<a className="text-gray-700" href={news.href}>
+							<a className="text-gray-700 dark:text-white/70" href={news.href}>
 								{news.title}
 							</a>
 						</li>
