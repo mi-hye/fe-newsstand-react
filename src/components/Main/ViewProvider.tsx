@@ -30,9 +30,9 @@ function reducer(state: ViewState, action: Action): ViewState {
 
 const ViewContext = createContext<[ViewState, React.Dispatch<Action>]>([initialState, () => {}]);
 
-function ViewProvider(props: Props) {
+function ViewProvider({ children }: Props) {
 	const [state, dispatch] = useReducer(reducer, initialState);
-	return <ViewContext.Provider value={[state, dispatch]}>{props.children}</ViewContext.Provider>;
+	return <ViewContext.Provider value={[state, dispatch]}>{children}</ViewContext.Provider>;
 }
 
 export { ViewContext, ViewProvider };

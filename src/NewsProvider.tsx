@@ -10,15 +10,21 @@ const NewsContext = createContext<[News[], React.Dispatch<React.SetStateAction<N
 	() => {},
 ]);
 
-function NewsProvider(props: Props) {
+function NewsProvider({ children }: Props) {
 	const [news, setNews] = useState<News[]>([]);
 	useEffect(() => {
-		fetch(`${SERVER}/news`)
-			.then((res) => res.json())
-			.then((news) => setNews(news))
-			.catch((err) => console.error(err));
+		const fetchNews = async () => {
+			try {
+				const res = await fetch(`${SERVER}/news`);
+				const news = await res.json();
+				setNews(news);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fetchNews();
 	}, []);
-	return <NewsContext.Provider value={[news, setNews]}>{props.children}</NewsContext.Provider>;
+	return <NewsContext.Provider value={[news, setNews]}>{children}</NewsContext.Provider>;
 }
 
 export { NewsContext, NewsProvider };
