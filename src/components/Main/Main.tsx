@@ -1,7 +1,7 @@
-import SubGrid from "./Grid/SubGrid";
-import TotalGrid from "./Grid/TotalGrid";
-import SubList from "./List/SubList";
-import TotalList from "./List/TotalList";
+import SubGrid from "./SubGrid/SubGrid";
+import TotalGrid from "./TotalGrid/TotalGrid";
+import SubList from "./SubList/SubList";
+import TotalList from "./TotalList/TotalList";
 import Tab from "./Tab/Tab";
 import { useContext } from "react";
 import { ViewContext, ViewProvider } from "./ViewProvider";
