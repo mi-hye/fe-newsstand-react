@@ -22,6 +22,8 @@ interface Param {
 
 const style = "pr-14 text-white bg-news-blue/40";
 const ANIMATION_DURATION = 6000;
+const LIST_LAST_PAGE = 213;
+const LIST_FIRST_PAGE = 0;
 const categories = [
 	"종합/경제",
 	"방송/통신",
@@ -42,7 +44,7 @@ const changeCategory = (param: Param) => {
 	const lastCategoryPage = currentPage === length + startIdx;
 	const lastPage = !currentPage && currCategory === "지역";
 	const firstCategoryPage = currentPage === startIdx - 1;
-	const firstPage = currentPage === 213 && currCategory === "종합/경제";
+	const firstPage = currentPage === LIST_LAST_PAGE && currCategory === "종합/경제";
 
 	if (lastCategoryPage) {
 		setCurrCategory(nextCategory);
@@ -76,9 +78,9 @@ function CategoryTab({ currentPage, setCurrentPage }: PageProps) {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			if (currentPage === 213) {
+			if (currentPage === LIST_LAST_PAGE) {
 				setCurrCategory("종합/경제");
-				setCurrentPage(0);
+				setCurrentPage(LIST_FIRST_PAGE);
 			} else setCurrentPage((prev) => prev + 1);
 		}, ANIMATION_DURATION);
 		return () => clearInterval(interval);
