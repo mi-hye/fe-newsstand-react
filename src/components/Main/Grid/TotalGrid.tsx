@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import Swiper from "./Swiper";
+import Swiper from "../Swiper/Swiper";
 import { NewsContext } from "../../../NewsProvider";
 
 //TODO 구독하기 만들어야함
@@ -11,6 +11,7 @@ function subscribe({ target }: React.MouseEvent<HTMLElement>) {
 const GRID_TOTAL_NUM = 96;
 const CELL_COUNT = 24;
 const ZERO = 0;
+const LAST_PAGE = 3;
 
 const getTotalGridNews = (news: News[]) =>
 	news.slice(ZERO, GRID_TOTAL_NUM).sort(() => Math.random() - 0.5);
@@ -50,7 +51,12 @@ function TotalGrid() {
 					);
 				})}
 			</div>
-			<Swiper lastPage={3} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+			<Swiper
+				lastPage={LAST_PAGE}
+				currentPage={currentPage}
+				setCurrentPage={setCurrentPage}
+				isGrid={true}
+			/>
 		</>
 	);
 }
