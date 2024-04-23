@@ -5,7 +5,7 @@ import SingleNews from "./SingleNews/SingleNews";
 import Swiper from "../Swiper/Swiper";
 
 const ZERO = 0;
-const LAST_PAGE = 214;
+const LAST_PAGE = 213;
 
 function TotalList() {
 	const [news] = useContext(NewsContext);
@@ -14,7 +14,7 @@ function TotalList() {
 	return (
 		<>
 			<div className="border-2 border-customGray dark:border-white/40 h-full">
-				<CategoryTab currentPage={currentPage} />
+				<CategoryTab currentPage={currentPage} setCurrentPage={setCurrentPage} />
 				<SingleNews singleNews={news[currentPage]}></SingleNews>
 			</div>
 			<Swiper
