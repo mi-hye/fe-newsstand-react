@@ -8,44 +8,32 @@ interface Props {
 const FIRST_PAGE = 0;
 
 function Swiper({ lastPage, currentPage, setCurrentPage, isGrid }: Props) {
-	//TODO 중복값 리펙토링 예정
-	const clickGridLeft = () =>
+	const clickLeft = () =>
 		setCurrentPage((prev) => {
 			if (prev > FIRST_PAGE) return prev - 1;
-			return FIRST_PAGE;
-		});
-
-	const clickGridRight = () =>
-		setCurrentPage((prev) => {
-			if (prev < lastPage) return prev + 1;
+			if (isGrid) return FIRST_PAGE;
 			return lastPage;
 		});
 
-	const clickListLeft = () => {
-		setCurrentPage((prev) => {
-			if (prev > FIRST_PAGE) return prev - 1;
-			return lastPage;
-		});
-	};
-	const ClickListRight = () => {
+	const clickRight = () =>
 		setCurrentPage((prev) => {
 			if (prev < lastPage) return prev + 1;
+			if (isGrid) return lastPage;
 			return FIRST_PAGE;
 		});
-	};
 
 	return (
 		<div className="absolute top-[57%] text-[70px] text-news-gray/50 dark:text-white/60">
 			<i
-				onClick={isGrid ? clickGridLeft : clickListLeft}
+				onClick={clickLeft}
 				className={`fa-solid fa-chevron-left absolute cursor-pointer left-[-70px] hover:text-news-gray transition ${
-					isGrid && (currentPage ? "opacity-100" : "opacity-0")
+					isGrid && (currentPage ? "opacity-100" : "opacity-0 cursor-default")
 				}`}
 			></i>
 			<i
-				onClick={isGrid ? clickGridRight : ClickListRight}
+				onClick={clickRight}
 				className={`fa-solid fa-chevron-right absolute cursor-pointer right-[-1070px] hover:text-news-gray transition ${
-					isGrid && (currentPage === lastPage ? "opacity-0" : "opacity-100")
+					isGrid && (currentPage === lastPage ? "opacity-0 cursor-default" : "opacity-100")
 				}`}
 			></i>
 		</div>
