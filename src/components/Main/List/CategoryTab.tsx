@@ -1,8 +1,16 @@
 import { useContext, useState } from "react";
 import { NewsContext } from "../../../NewsProvider";
 
-interface Props {
+interface PageProps {
+	currentPage: number;
+}
+interface CategoryProps {
 	currCategory: string;
+	currentPage: number;
+}
+
+interface CategoryLength {
+	[key: string]: number;
 }
 
 const style = "pr-14 text-white bg-news-blue/40";
@@ -16,9 +24,8 @@ const categories = [
 	"지역",
 ];
 
-const TotalCategory = ({ currCategory }: Props) => {
-	const [, categoryLength] = useContext(NewsContext);
-	console.log(categoryLength);
+const TotalCategory = ({ currentPage, currCategory }: CategoryProps) => {
+	const [, categoryLength]: [News[], CategoryLength] = useContext(NewsContext);
 	return (
 		<>
 			{categories.map((category, i) => (
@@ -38,7 +45,8 @@ const TotalCategory = ({ currCategory }: Props) => {
 					{category === currCategory ? (
 						<>
 							<div className="absolute top-[10px] right-2 z-10 text-[10px]">
-								<span>2</span> / 81
+								<span>{currentPage + 1}</span>
+								<span> / {categoryLength[currCategory]}</span>
 							</div>
 							<span className="absolute top-0 h-full z-0 bg-news-blue w-full animate-fill"></span>
 						</>
@@ -51,7 +59,7 @@ const TotalCategory = ({ currCategory }: Props) => {
 	);
 };
 
-function CategoryTab() {
+function CategoryTab({ currentPage }: PageProps) {
 	const [currCategory, setCurrCategory] = useState("종합/경제");
 	const onClick = ({ target }: React.MouseEvent<HTMLElement>) => {
 		const $target = target as HTMLElement;
@@ -64,7 +72,7 @@ function CategoryTab() {
 			className="bg-customGray flex items-center border-b-2 border-customGray dark:border-white/40 h-10"
 			role="tablist"
 		>
-			<TotalCategory currCategory={currCategory} />
+			<TotalCategory currentPage={currentPage} currCategory={currCategory} />
 		</ul>
 	);
 }

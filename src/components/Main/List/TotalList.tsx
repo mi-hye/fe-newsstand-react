@@ -14,7 +14,7 @@ function TotalList() {
 	return (
 		<>
 			<div className="border-2 border-customGray dark:border-white/40 h-full">
-				<CategoryTab />
+				<CategoryTab currentPage={currentPage} />
 				<SingleNews singleNews={news[currentPage]}></SingleNews>
 			</div>
 			<Swiper
