@@ -1,5 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 
+interface CategoryInfo {
+	[key: string]: {
+		length: number;
+		startIdx: number;
+	};
+}
+
 interface Props {
 	children: React.ReactNode;
 }
@@ -38,12 +45,15 @@ function NewsProvider({ children }: Props) {
 			try {
 				const res = Object.values(APIs).map((api) => fetch(api));
 				const promiseRes = await Promise.all(res);
+				
+				let startIdx = 0;
+				const categoryInfo: CategoryInfo = {};
 				for (const promise of promiseRes) {
 					const category = await promise.json();
-					setCategoryLength((prev) =>
-						Object.assign(prev, { [category[0].category]: category.length })
-					);
+					categoryInfo[category[0].category] = { length: category.length, startIdx: startIdx };
+					startIdx += category.length;
 				}
+				setCategoryLength(categoryInfo);
 			} catch (error) {
 				console.error(error);
 			}
