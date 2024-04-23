@@ -30,7 +30,7 @@ function SingleNews({ singleNews }: Props) {
 				<ul className="h-full w-[60%] mx-4">
 					{sideNews.map((news, i) => (
 						<li key={i} className={`${i > 0 ? "my-4" : ""}`}>
-							<a className="text-gray-700 dark:text-white/70" href={news.href}>
+							<a className="text-gray-700 dark:text-white/70 text-sm" href={news.href}>
 								{news.title}
 							</a>
 						</li>
