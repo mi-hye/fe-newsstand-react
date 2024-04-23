@@ -28,7 +28,7 @@ function Main() {
 
 function ContentView() {
 	const [state] = useContext(ViewContext);
-	return <div className="mt-4 h-[400px]">{veiwStateMap[`${state.media}-${state.display}`]()}</div>;
+	return <div className="h-[400px]">{veiwStateMap[`${state.media}-${state.display}`]()}</div>;
 }
 
 export default Main;

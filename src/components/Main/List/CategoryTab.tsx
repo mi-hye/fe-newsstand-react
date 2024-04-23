@@ -19,7 +19,7 @@ const TotalCategory = ({ currCategory }: Props) => {
 		<>
 			{categories.map((category, i) => (
 				<li
-					className={`relative mr-2 cursor-pointer transition-[padding] ease-in-out duration-500 ${
+					className={`relative mr-2 cursor-pointer transition-[padding] ease-in-out duration-500 h-[106%] ${
 						category === currCategory ? style : ""
 					}`}
 					key={i}
@@ -50,7 +50,11 @@ function CategoryTab() {
 		if ($li) setCurrCategory($li.innerText);
 	};
 	return (
-		<ul onClick={onClick} className="bg-customGray flex items-center border-b-2" role="tablist">
+		<ul
+			onClick={onClick}
+			className="bg-customGray flex items-center border-b-2 h-10"
+			role="tablist"
+		>
 			<TotalCategory currCategory={currCategory} />
 		</ul>
 	);

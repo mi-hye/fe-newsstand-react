@@ -34,7 +34,7 @@ function TotalGrid() {
 					return (
 						<div
 							key={currNews.id}
-							className="group border-b-2 border-r-2 border-customGray flex justify-center items-center hover:bg-news-gray/10  dark:border-white/40 dark:hover:bg-news-gray/30"
+							className="group border-b-2 border-r-2 border-customGray flex justify-center items-center hover:bg-news-gray/10 dark:border-white/40 dark:hover:bg-news-gray/30"
 						>
 							<img
 								className="h-6 relative group-hover:opacity-0"
