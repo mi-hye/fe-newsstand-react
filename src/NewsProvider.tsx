@@ -4,11 +4,7 @@ interface Props {
 	children: React.ReactNode;
 }
 const SERVER = process.env.REACT_APP_JSON_SERVER;
-
-const NewsContext = createContext<[News[], React.Dispatch<React.SetStateAction<News[]>>]>([
-	[],
-	() => {},
-]);
+const NewsContext = createContext<[News[]]>([[]]);
 
 function NewsProvider({ children }: Props) {
 	const [news, setNews] = useState<News[]>([]);
@@ -24,7 +20,7 @@ function NewsProvider({ children }: Props) {
 		};
 		fetchNews();
 	}, []);
-	return <NewsContext.Provider value={[news, setNews]}>{children}</NewsContext.Provider>;
+	return <NewsContext.Provider value={[news]}>{children}</NewsContext.Provider>;
 }
 
 export { NewsContext, NewsProvider };
