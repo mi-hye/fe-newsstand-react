@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NewsContext } from "../../../NewsProvider";
 
 interface PageProps {
@@ -18,6 +18,7 @@ interface CategoryLength {
 }
 
 const style = "pr-14 text-white bg-news-blue/40";
+const ANIMATION_DURATION = 6000;
 const categories = [
 	"종합/경제",
 	"방송/통신",
@@ -51,7 +52,10 @@ const TotalCategory = ({ currentPage, currCategory, categoryLength }: CategoryPr
 								<span>{currentPage + 1 - categoryLength[currCategory].startIdx}</span>
 								<span> / {categoryLength[currCategory].length}</span>
 							</div>
-							<span className="absolute top-0 h-full z-0 bg-news-blue w-full animate-fill"></span>
+							<span
+								key={currentPage}
+								className="absolute top-0 h-full z-0 bg-news-blue w-full animate-fill"
+							></span>
 						</>
 					) : (
 						""
@@ -74,6 +78,25 @@ function CategoryTab({ currentPage, setCurrentPage }: PageProps) {
 			setCurrentPage(categoryLength[currText].startIdx);
 		}
 	};
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if (currentPage === 213) {
+				setCurrCategory("종합/경제");
+				setCurrentPage(0);
+			} else setCurrentPage((prev) => prev + 1);
+		}, ANIMATION_DURATION);
+		return () => clearInterval(interval);
+	});
+
+	useEffect(() => {
+		const { length, startIdx } = categoryLength[currCategory];
+		if (currentPage === length + startIdx) {
+			const currCategoryIdx = categories.indexOf(currCategory);
+			const nextCategory = categories[currCategoryIdx + 1];
+			setCurrCategory(nextCategory);
+		}
+	}, [currentPage]);
 	return (
 		<ul
 			onClick={onClick}
