@@ -1,20 +1,23 @@
-import { useContext, useEffect, useState } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import { NewsContext } from "../../../NewsProvider";
 
 interface PageProps {
 	currentPage: number;
 	setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
-interface CategoryProps {
-	currCategory: string;
-	currentPage: number;
-	categoryLength: CategoryLength;
-}
 
 interface CategoryLength {
 	[key: string]: {
 		[key: string]: number;
 	};
+}
+interface Param {
+	currentPage: number;
+	currCategory: string;
+	length: number;
+	startIdx: number;
+	setCurrCategory: React.Dispatch<SetStateAction<string>>;
+	currCategoryIdx: number;
 }
 
 const style = "pr-14 text-white bg-news-blue/40";
@@ -29,9 +32,70 @@ const categories = [
 	"지역",
 ];
 
-const TotalCategory = ({ currentPage, currCategory, categoryLength }: CategoryProps) => {
+const changeCategory = (param:Param) => {
+	const { currentPage, currCategory, length, startIdx, setCurrCategory, currCategoryIdx } = param;
+	const nextCategory =
+		currCategoryIdx === categories.length - 1 ? categories[0] : categories[currCategoryIdx + 1];
+	const prevCategory = currCategoryIdx
+		? categories[currCategoryIdx - 1]
+		: categories[categories.length - 1];
+	const lastCategoryPage = currentPage === length + startIdx;
+	const lastPage = !currentPage && currCategory === "지역";
+	const firstCategoryPage = currentPage === startIdx - 1;
+	const firstPage = currentPage === 213 && currCategory === "종합/경제";
+
+	if (lastCategoryPage) {
+		setCurrCategory(nextCategory);
+		return;
+	}
+	if (lastPage) {
+		setCurrCategory(nextCategory);
+		return;
+	}
+	if (firstCategoryPage) {
+		setCurrCategory(prevCategory);
+		return;
+	}
+	if (firstPage) setCurrCategory(prevCategory);
+};
+
+function CategoryTab({ currentPage, setCurrentPage }: PageProps) {
+	const [, categoryLength]: [News[], CategoryLength] = useContext(NewsContext);
+	const [currCategory, setCurrCategory] = useState("종합/경제");
+
+	const onClick = ({ target }: React.MouseEvent<HTMLElement>) => {
+		const $target = target as HTMLElement;
+		const $li = $target.closest("li") as HTMLElement;
+		if ($li) {
+			const [$categoryText] = $li.childNodes;
+			const currText = ($categoryText as HTMLElement).innerHTML;
+			setCurrCategory(currText);
+			setCurrentPage(categoryLength[currText].startIdx);
+		}
+	};
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if (currentPage === 213) {
+				setCurrCategory("종합/경제");
+				setCurrentPage(0);
+			} else setCurrentPage((prev) => prev + 1);
+		}, ANIMATION_DURATION);
+		return () => clearInterval(interval);
+	});
+
+	useEffect(() => {
+		const { length, startIdx } = categoryLength[currCategory];
+		const currCategoryIdx = categories.indexOf(currCategory);
+		const param = { currentPage, currCategory, length, startIdx, setCurrCategory, currCategoryIdx };
+		changeCategory(param);
+	}, [currentPage]);
 	return (
-		<>
+		<ul
+			onClick={onClick}
+			className="bg-customGray flex items-center border-b-2 border-customGray dark:border-white/40 h-10"
+			role="tablist"
+		>
 			{categories.map((category, i) => (
 				<li
 					className={`relative mr-2 cursor-pointer transition-[padding] ease-in-out duration-500 h-[106%] ${
@@ -62,52 +126,6 @@ const TotalCategory = ({ currentPage, currCategory, categoryLength }: CategoryPr
 					)}
 				</li>
 			))}
-		</>
-	);
-};
-
-function CategoryTab({ currentPage, setCurrentPage }: PageProps) {
-	const [, categoryLength]: [News[], CategoryLength] = useContext(NewsContext);
-	const [currCategory, setCurrCategory] = useState("종합/경제");
-	const onClick = ({ target }: React.MouseEvent<HTMLElement>) => {
-		const $target = target as HTMLElement;
-		const $li = $target.closest("li") as HTMLElement;
-		if ($li) {
-			const currText = $li.innerText;
-			setCurrCategory(currText);
-			setCurrentPage(categoryLength[currText].startIdx);
-		}
-	};
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			if (currentPage === 213) {
-				setCurrCategory("종합/경제");
-				setCurrentPage(0);
-			} else setCurrentPage((prev) => prev + 1);
-		}, ANIMATION_DURATION);
-		return () => clearInterval(interval);
-	});
-
-	useEffect(() => {
-		const { length, startIdx } = categoryLength[currCategory];
-		if (currentPage === length + startIdx) {
-			const currCategoryIdx = categories.indexOf(currCategory);
-			const nextCategory = categories[currCategoryIdx + 1];
-			setCurrCategory(nextCategory);
-		}
-	}, [currentPage]);
-	return (
-		<ul
-			onClick={onClick}
-			className="bg-customGray flex items-center border-b-2 border-customGray dark:border-white/40 h-10"
-			role="tablist"
-		>
-			<TotalCategory
-				currentPage={currentPage}
-				currCategory={currCategory}
-				categoryLength={categoryLength}
-			/>
 		</ul>
 	);
 }
