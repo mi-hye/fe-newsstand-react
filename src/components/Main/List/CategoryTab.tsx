@@ -32,7 +32,7 @@ const categories = [
 	"지역",
 ];
 
-const changeCategory = (param:Param) => {
+const changeCategory = (param: Param) => {
 	const { currentPage, currCategory, length, startIdx, setCurrCategory, currCategoryIdx } = param;
 	const nextCategory =
 		currCategoryIdx === categories.length - 1 ? categories[0] : categories[currCategoryIdx + 1];
@@ -89,7 +89,7 @@ function CategoryTab({ currentPage, setCurrentPage }: PageProps) {
 		const currCategoryIdx = categories.indexOf(currCategory);
 		const param = { currentPage, currCategory, length, startIdx, setCurrCategory, currCategoryIdx };
 		changeCategory(param);
-	}, [currentPage]);
+	}, [categoryLength, currCategory, currentPage]);
 	return (
 		<ul
 			onClick={onClick}
