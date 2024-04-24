@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import handleSubscription from "../../../utility/subscription";
-import Swiper from "../Swiper/Swiper";
+import Swiper from "../shared-components/Swiper";
 
 const SERVER = process.env.REACT_APP_JSON_SERVER;
 const CELL_COUNT = 24;

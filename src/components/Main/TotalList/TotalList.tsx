@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { NewsContext } from "../../../NewsProvider";
 import CategoryTab from "./CategoryTab";
 import SingleNews from "./SingleNews/SingleNews";
-import Swiper from "../Swiper/Swiper";
+import Swiper from "../shared-components/Swiper";
 
 const ZERO = 0;
 const LAST_PAGE = 213;
