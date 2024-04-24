@@ -64,7 +64,7 @@ function subscribe(targetNews: News, id: string, setTarget: SetTarget, dispatch:
 	}, MODAL_DELAY);
 }
 
-function unsubscribe(targetNews: News, id: string, setTarget: SetTarget) {
+async function unsubscribe(targetNews: News, id: string, setTarget: SetTarget) {
 	const updatetargetNews = { ...targetNews, subscription: false };
 	fetchUnsubscribe(updatetargetNews, id);
 	setTarget(null);

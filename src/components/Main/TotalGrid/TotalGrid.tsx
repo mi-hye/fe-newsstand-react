@@ -20,9 +20,7 @@ function TotalGrid() {
 	if (!news.length) return <></>;
 
 	const startIdx = currentPage * CELL_COUNT;
-
 	const gridNews = getTotalGridNews(news);
-
 	return (
 		<>
 			<div

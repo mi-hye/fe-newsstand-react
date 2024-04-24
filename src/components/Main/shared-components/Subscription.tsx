@@ -3,6 +3,7 @@ import { unsubscribe } from "../../../utility/subscription";
 interface Props {
 	target: News;
 	setTarget: React.Dispatch<React.SetStateAction<News | null>>;
+	getSubNews?: () => {};
 }
 
 function Subscription() {
@@ -15,7 +16,7 @@ function Subscription() {
 	);
 }
 
-function Unsubscription({ target, setTarget }: Props) {
+function Unsubscription({ target, setTarget, getSubNews }: Props) {
 	return (
 		<div className="absolute shadow-md text-sm top-[35%] left-[37%] w-1/4 bg-white border-2 dark:bg-blue-950 dark:text-white dark:border-white border-customGray">
 			<span className="block text-center mt-5 font-bold">
@@ -26,7 +27,10 @@ function Unsubscription({ target, setTarget }: Props) {
 			</span>
 			<div className="h-10 border-t-2">
 				<button
-					onClick={() => unsubscribe(target, target.id, setTarget)}
+					onClick={async () => {
+						await unsubscribe(target, target.id, setTarget);
+						if (getSubNews) getSubNews();
+					}}
 					className="bg-customGray/10 w-1/2 h-full border-r-2 hover:underline"
 				>
 					예

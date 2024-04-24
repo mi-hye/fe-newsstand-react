@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import handleSubscription from "../../../utility/subscription";
+import { useEffect, useState, useContext } from "react";
+import { handleSubscription } from "../../../utility/subscription";
+import { ViewContext } from "../ViewProvider";
 import Swiper from "../shared-components/Swiper";
+import { Unsubscription, Subscription } from "../shared-components/Subscription";
 
 const SERVER = process.env.REACT_APP_JSON_SERVER;
 const CELL_COUNT = 24;
@@ -19,6 +21,8 @@ const fetchSubNews = async () => {
 function SubGrid() {
 	const [subNews, setSubNews] = useState<News[]>([]);
 	const [currentPage, setCurrentPage] = useState<number>(ZERO);
+	const [target, setTarget] = useState<News | null>(null);
+	const [, dispatch] = useContext(ViewContext);
 	const startIdx = currentPage * CELL_COUNT;
 	const lastIdx = subNews.length - 1;
 
@@ -34,7 +38,7 @@ function SubGrid() {
 	return (
 		<>
 			<div
-				onClick={handleSubscription}
+				onClick={(e) => handleSubscription(e, setTarget, dispatch)}
 				className=" border-t-2 border-l-2 border-customGray dark:border-white/40 h-full grid grid-rows-4 grid-cols-6"
 			>
 				{Array.from({ length: CELL_COUNT }).map((_, i) => {
@@ -74,6 +78,7 @@ function SubGrid() {
 				setCurrentPage={setCurrentPage}
 				isGrid={true}
 			/>
+			{target && <Unsubscription target={target} setTarget={setTarget} getSubNews={getSubNews} />}
 		</>
 	);
 }
