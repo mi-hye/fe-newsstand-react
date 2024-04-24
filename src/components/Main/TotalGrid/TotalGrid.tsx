@@ -1,12 +1,7 @@
 import { useState, useContext } from "react";
 import Swiper from "../Swiper/Swiper";
 import { NewsContext } from "../../../NewsProvider";
-
-//TODO 구독하기 만들어야함
-function subscribe({ target }: React.MouseEvent<HTMLElement>) {
-	const $target = target as HTMLElement;
-	if ($target.tagName === "BUTTON") console.log($target);
-}
+import handleSubscription from "../../../utility/subscription";
 
 const GRID_TOTAL_NUM = 96;
 const CELL_COUNT = 24;
@@ -26,7 +21,7 @@ function TotalGrid() {
 	return (
 		<>
 			<div
-				onClick={subscribe}
+				onClick={handleSubscription}
 				className=" border-t-2 border-l-2 border-customGray dark:border-white/40 h-full grid grid-rows-4 grid-cols-6"
 			>
 				{Array.from({ length: CELL_COUNT }).map((_, i) => {
