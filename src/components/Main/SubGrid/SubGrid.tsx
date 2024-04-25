@@ -78,7 +78,7 @@ function SubGrid() {
 				setCurrentPage={setCurrentPage}
 				isGrid={true}
 			/>
-			{target && <Unsubscription target={target} setTarget={setTarget} getSubNews={getSubNews} />}
+			{target && <Unsubscription target={target} setTarget={setTarget} getNews={getSubNews} />}
 		</>
 	);
 }

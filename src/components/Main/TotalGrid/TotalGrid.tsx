@@ -76,7 +76,7 @@ function TotalGrid() {
 			/>
 			{target &&
 				(target.subscription ? (
-					<Unsubscription target={target} setTarget={setTarget} />
+					<Unsubscription target={target} setTarget={setTarget} getNews={getTotalGridNews} />
 				) : (
 					<Subscription />
 				))}
