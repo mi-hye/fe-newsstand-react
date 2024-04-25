@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import { NewsContext } from "../../../NewsProvider";
 import { ViewContext } from "../ViewProvider";
 import Swiper from "../shared-components/Swiper";
 import { Subscription, Unsubscription } from "../shared-components/Subscription";
