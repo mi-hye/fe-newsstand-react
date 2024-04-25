@@ -16,8 +16,6 @@ function CategoryTab({ subNews, currCategoryIdx, setcurrCategoryIdx }: Props) {
 		const idx = [...$liList].indexOf($li);
 		setcurrCategoryIdx(idx);
 	};
-
-	console.log(currCategoryIdx);
 	return (
 		<ul
 			onClick={onClick}
