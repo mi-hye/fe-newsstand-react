@@ -16,9 +16,9 @@ const fetchSubscribe = (targetNews: News, id: string) => {
 	});
 };
 
-const fetchUnsubscribe = (targetNews: News, id: string) => {
+const fetchUnsubscribe = async (targetNews: News, id: string) => {
 	updateNews(targetNews, id);
-	fetch(`${SERVER}/subscribe/${id}`, {
+	await fetch(`${SERVER}/subscribe/${id}`, {
 		method: "DELETE",
 		body: JSON.stringify(targetNews),
 	});
@@ -66,7 +66,7 @@ function subscribe(targetNews: News, id: string, setTarget: SetTarget, dispatch:
 
 async function unsubscribe(targetNews: News, id: string, setTarget: SetTarget) {
 	const updatetargetNews = { ...targetNews, subscription: false };
-	fetchUnsubscribe(updatetargetNews, id);
+	await fetchUnsubscribe(updatetargetNews, id);
 	setTarget(null);
 }
 

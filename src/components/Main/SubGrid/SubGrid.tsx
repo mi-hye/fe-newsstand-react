@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { handleSubscription } from "../../../utility/subscription";
 import { ViewContext } from "../ViewProvider";
 import Swiper from "../shared-components/Swiper";
-import { Unsubscription, Subscription } from "../shared-components/Subscription";
+import { Unsubscription } from "../shared-components/Subscription";
 
 const SERVER = process.env.REACT_APP_JSON_SERVER;
 const CELL_COUNT = 24;
