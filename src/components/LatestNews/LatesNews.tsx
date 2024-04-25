@@ -12,8 +12,8 @@ function LatesNews() {
 	if (!news.length) return <div className="my-5 text-xl text-center font-bold">|ω・`)ﾉ Hi..</div>;
 	return (
 		<section className="flex">
-			<RollingNews margin="mr-4" news={news.slice(0, 50)} />
-			<RollingNews news={news.slice(0, 50)} />
+			<RollingNews margin="mr-4" news={news} />
+			<RollingNews news={news} />
 		</section>
 	);
 }

@@ -17,6 +17,7 @@ module.exports = {
 			animation: {
 				wiggle: "wiggle 1s ease-in-out infinite",
 				rolling: "rolling 10s cubic-bezier(0.22, 0.7, 1, 1.01) forwards infinite",
+				rollingDelay: "rollingDelay 10s 5s cubic-bezier(0.22, 0.7, 1, 1.01) forwards infinite",
 				fill: "fill 6s linear infinite",
 			},
 			keyframes: {
@@ -33,6 +34,17 @@ module.exports = {
 					},
 					"50%,100%": {
 						transform: "translateY(-240%)",
+					},
+				},
+				rollingDelay: {
+					"0%": {
+						transform: "translateY(0%)",
+					},
+					"10%,40%": {
+						transform: "translateY(-240%)",
+					},
+					"50%,100%": {
+						transform: "translateY(-440%)",
 					},
 				},
 				fill: {
