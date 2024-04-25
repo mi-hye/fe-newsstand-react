@@ -100,7 +100,7 @@ function CategoryTab({ currentPage, setCurrentPage }: PageProps) {
 		>
 			{categories.map((category, i) => (
 				<li
-					className={`relative flex items-center mr-2 cursor-pointer transition-[padding] ease-in-out duration-500 ${
+					className={`relative flex items-center pl-1 cursor-pointer transition-[padding] ease-in-out duration-500 ${
 						category === currCategory ? style : ""
 					}`}
 					key={i}
@@ -120,7 +120,7 @@ function CategoryTab({ currentPage, setCurrentPage }: PageProps) {
 							</div>
 							<span
 								key={currentPage}
-								className="absolute top-0 h-full z-0 bg-news-blue w-full animate-fill"
+								className="absolute top-0 left-0 h-full z-0 bg-news-blue w-full animate-fill"
 							></span>
 						</>
 					) : (
