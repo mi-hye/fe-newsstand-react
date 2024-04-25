@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { NewsContext } from "../../../NewsProvider";
-import CategoryTab from "./CategoryTab";
-import SingleNews from "./SingleNews/SingleNews";
+import CategoryTab from "./CategoryTab/CategoryTab";
+import SingleNews from "../shared-components/SingleNews";
 import Swiper from "../shared-components/Swiper";
 
 const ZERO = 0;

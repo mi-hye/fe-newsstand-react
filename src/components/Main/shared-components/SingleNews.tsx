@@ -6,7 +6,7 @@ function SingleNews({ singleNews }: Props) {
 	const { id, logoImageSrc, headline, editedTime, subscription, pressName, sideNews } = singleNews;
 	return (
 		<>
-			<div className="flex items-center h-[10%] mx-10 my-2">
+			<div className="flex items-center h-[10%] ml-10 my-2 w-[36%] justify-between">
 				<a className="" href={headline.href}>
 					<img className="h-[20px] mr-4" src={logoImageSrc} alt=""></img>
 				</a>
@@ -21,7 +21,11 @@ function SingleNews({ singleNews }: Props) {
 			<div className="h-[77%] flex">
 				<div className="flex flex-col h-full w-[40%] mx-10">
 					<a href={headline.href}>
-						<img className="w-[330px]" src={headline.thumbnailSrc} alt={pressName}></img>
+						<img
+							className="w-[330px] hover:scale-110"
+							src={headline.thumbnailSrc}
+							alt={pressName}
+						></img>
 					</a>
 					<a className="w-[330px] font-bold my-3 text-sm dark:text-white" href={headline.href}>
 						{headline.title}
