@@ -62,7 +62,7 @@ const changeCategory = (param: Param) => {
 };
 
 function CategoryTab({ currentPage, setCurrentPage }: PageProps) {
-	const [, categoryLength]: [News[], CategoryLength] = useContext(NewsContext);
+	const [categoryLength]: [CategoryLength] = useContext(NewsContext);
 	const [currCategory, setCurrCategory] = useState("종합/경제");
 
 	const onClick = ({ target }: React.MouseEvent<HTMLElement>) => {

@@ -11,7 +11,7 @@ interface Props {
 	children: React.ReactNode;
 }
 const SERVER = process.env.REACT_APP_JSON_SERVER;
-const NewsContext = createContext<[News[], {}]>([[], {}]);
+const NewsContext = createContext<[{}]>([{}]);
 
 const APIs = {
 	CATEGORY_ECONOMY: `${SERVER}/news?category=종합/경제`,
@@ -24,28 +24,14 @@ const APIs = {
 };
 
 function NewsProvider({ children }: Props) {
-	const [news, setNews] = useState<News[]>([]);
 	const [categoryLength, setCategoryLength] = useState<{}>({});
-
-	useEffect(() => {
-		const fetchNews = async () => {
-			try {
-				const res = await fetch(`${SERVER}/news`);
-				const news = await res.json();
-				setNews(news);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-		fetchNews();
-	}, []);
 
 	useEffect(() => {
 		const fetchNews = async () => {
 			try {
 				const res = Object.values(APIs).map((api) => fetch(api));
 				const promiseRes = await Promise.all(res);
-				
+
 				let startIdx = 0;
 				const categoryInfo: CategoryInfo = {};
 				for (const promise of promiseRes) {
@@ -61,7 +47,7 @@ function NewsProvider({ children }: Props) {
 		fetchNews();
 	}, []);
 
-	return <NewsContext.Provider value={[news, categoryLength]}>{children}</NewsContext.Provider>;
+	return <NewsContext.Provider value={[categoryLength]}>{children}</NewsContext.Provider>;
 }
 
 export { NewsContext, NewsProvider };
