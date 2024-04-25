@@ -23,7 +23,7 @@ function Swiper({ lastPage, currentPage, setCurrentPage, isGrid }: Props) {
 		});
 
 	return (
-		<div className="absolute top-[57%] text-[70px] text-news-gray/50 dark:text-white/60">
+		<div className="absolute top-[42%] text-[70px] text-news-gray/50 dark:text-white/60">
 			<i
 				onClick={clickLeft}
 				className={`fa-solid fa-chevron-left absolute cursor-pointer left-[-70px] hover:text-news-gray transition ${
