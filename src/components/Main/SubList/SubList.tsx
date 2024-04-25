@@ -32,7 +32,7 @@ function SubList() {
 	return (
 		<>
 			<div className="border-2 border-customGray dark:border-white/40 h-full">
-				<CategoryTab subNews={subNews} setcurrCategoryIdx={setcurrCategoryIdx}></CategoryTab>
+				<CategoryTab subNews={subNews} currCategoryIdx={currCategoryIdx} setcurrCategoryIdx={setcurrCategoryIdx}></CategoryTab>
 				<SingleNews singleNews={subNews[currCategoryIdx]}></SingleNews>
 			</div>
 		</>

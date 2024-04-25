@@ -1,12 +1,15 @@
 import React, { SetStateAction } from "react";
-type Dispatcher = React.Dispatch<SetStateAction<number>>;
 
+type Dispatcher = React.Dispatch<SetStateAction<number>>;
 interface Props {
 	subNews: News[];
+	currCategoryIdx: number;
 	setcurrCategoryIdx: Dispatcher;
 }
 
-function CategoryTab({ subNews, setcurrCategoryIdx }: Props) {
+const style = "pr-14 text-white bg-news-blue/40";
+
+function CategoryTab({ subNews, currCategoryIdx, setcurrCategoryIdx }: Props) {
 	const onClick = ({ target }: React.MouseEvent<HTMLElement>) => {
 		const $liList = (target as HTMLElement).closest("ul")?.childNodes as NodeListOf<ChildNode>;
 		const $li = (target as HTMLElement).closest("li") as HTMLElement;
@@ -14,6 +17,7 @@ function CategoryTab({ subNews, setcurrCategoryIdx }: Props) {
 		setcurrCategoryIdx(idx);
 	};
 
+	console.log(currCategoryIdx);
 	return (
 		<ul
 			onClick={onClick}
@@ -23,9 +27,21 @@ function CategoryTab({ subNews, setcurrCategoryIdx }: Props) {
 			{subNews.map((news, i) => (
 				<li
 					key={news.id}
-					className="relative flex items-center mr-2 cursor-pointer transition-[padding] ease-in-out duration-500"
+					className={`relative flex items-center pl-1 cursor-pointer transition-[padding] ease-in-out duration-500
+					${currCategoryIdx === i ? style : ""}`}
 				>
-					<span className="relative text-news-gray text-sm flex m-2 z-10 ">{news.pressName}</span>
+					<span
+						className={`relative text-news-gray text-sm flex m-2 z-10 ${
+							currCategoryIdx === i ? "text-white" : ""
+						}`}
+					>
+						{news.pressName}
+					</span>
+					{currCategoryIdx === i ? (
+						<span className="absolute top-0 left-0 h-full z-0 bg-news-blue w-full animate-fill"></span>
+					) : (
+						<></>
+					)}
 				</li>
 			))}
 		</ul>
