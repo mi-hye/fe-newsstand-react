@@ -6,14 +6,13 @@ interface Props {
 interface ViewState {
 	media: string;
 	display: string;
+	page?: true | undefined;
 }
 
-//action은 행동이다 "동사+명사로 지어야 명시적임"
-type Action =
-	| { type: "SET_VIEW_TOTAL" }
-	| { type: "SET_VIEW_SUB" }
-	| { type: "SET_VIEW_GRID" }
-	| { type: "SET_VIEW_LIST" };
+interface Action {
+	type: string;
+	payload?: true | undefined;
+}
 
 const initialState = { media: "total", display: "grid" };
 
@@ -22,7 +21,7 @@ function reducer(state: ViewState, action: Action): ViewState {
 		case "SET_VIEW_TOTAL":
 			return { media: "total", display: "grid" };
 		case "SET_VIEW_SUB":
-			return { media: "sub", display: "list" };
+			return { media: "sub", display: "list", page: action?.payload };
 		case "SET_VIEW_GRID":
 			return { media: state.media, display: "grid" };
 		case "SET_VIEW_LIST":

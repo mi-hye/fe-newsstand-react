@@ -1,10 +1,10 @@
 type SetTarget = React.Dispatch<React.SetStateAction<News | null>>;
 type Dispatch = React.Dispatch<Action>;
-type Action =
-	| { type: "SET_VIEW_TOTAL" }
-	| { type: "SET_VIEW_SUB" }
-	| { type: "SET_VIEW_GRID" }
-	| { type: "SET_VIEW_LIST" };
+interface Action {
+	type: string;
+	payload?: true | undefined;
+}
+
 const SERVER = process.env.REACT_APP_JSON_SERVER;
 const MODAL_DELAY = 1000;
 
@@ -60,7 +60,7 @@ function subscribe(targetNews: News, id: string, setTarget: SetTarget, dispatch:
 	fetchSubscribe(updatetargetNews, id);
 	setTimeout(() => {
 		setTarget(null);
-		dispatch({ type: "SET_VIEW_SUB" });
+		dispatch({ type: "SET_VIEW_SUB", payload: true });
 	}, MODAL_DELAY);
 }
 

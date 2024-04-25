@@ -7,14 +7,14 @@ import { useContext } from "react";
 import { ViewContext, ViewProvider } from "./ViewProvider";
 
 interface VeiwStateMap {
-	[key: string]: () => JSX.Element;
+	[key: string]: (page?: true | undefined) => JSX.Element;
 }
 
 const veiwStateMap: VeiwStateMap = {
 	"total-grid": () => <TotalGrid />,
 	"sub-grid": () => <SubGrid />,
 	"total-list": () => <TotalList />,
-	"sub-list": () => <SubList />,
+	"sub-list": (page) => <SubList page={page} />,
 };
 
 function Main() {
@@ -29,7 +29,9 @@ function Main() {
 function ContentView() {
 	const [state] = useContext(ViewContext);
 	return (
-		<div className="relative h-[400px]">{veiwStateMap[`${state.media}-${state.display}`]()}</div>
+		<div className="relative h-[400px]">
+			{veiwStateMap[`${state.media}-${state.display}`](state.page)}
+		</div>
 	);
 }
 

@@ -3,6 +3,10 @@ import CategoryTab from "./CategoryTab/CategoryTab";
 import SingleNews from "../shared-components/SingleNews";
 import Swiper from "../shared-components/Swiper";
 
+interface Props {
+	page: boolean | undefined;
+}
+
 const SERVER = process.env.REACT_APP_JSON_SERVER;
 const ZERO = 0;
 
@@ -16,7 +20,7 @@ const fetchSubNews = async () => {
 	}
 };
 
-function SubList() {
+function SubList({ page }: Props) {
 	const [subNews, setSubNews] = useState<News[]>([]);
 	const [currCategoryIdx, setcurrCategoryIdx] = useState<number>(ZERO);
 
@@ -28,6 +32,10 @@ function SubList() {
 	useEffect(() => {
 		getSubNews();
 	}, []);
+
+	useEffect(() => {
+		if (subNews.length) page && setcurrCategoryIdx(subNews.length - 1);
+	}, [page, subNews]);
 
 	if (!subNews.length) return <></>;
 	return (
