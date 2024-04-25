@@ -3,20 +3,10 @@ import { handleSubscription } from "../../../utility/subscription";
 import { ViewContext } from "../ViewProvider";
 import Swiper from "../shared-components/Swiper";
 import { Unsubscription } from "../shared-components/Subscription";
+import { getSubNews } from "../../../utility/newsSetting";
 
-const SERVER = process.env.REACT_APP_JSON_SERVER;
 const CELL_COUNT = 24;
 const ZERO = 0;
-
-const fetchSubNews = async () => {
-	try {
-		const res = await fetch(`${SERVER}/subscribe`);
-		const subNews = await res.json();
-		return subNews;
-	} catch (error) {
-		console.error(error);
-	}
-};
 
 function SubGrid() {
 	const [subNews, setSubNews] = useState<News[]>([]);
@@ -26,13 +16,8 @@ function SubGrid() {
 	const startIdx = currentPage * CELL_COUNT;
 	const lastIdx = subNews.length - 1;
 
-	const getSubNews = async () => {
-		const subNews = await fetchSubNews();
-		if (subNews) setSubNews(subNews);
-	};
-
 	useEffect(() => {
-		getSubNews();
+		getSubNews(setSubNews);
 	}, []);
 
 	return (
@@ -56,7 +41,6 @@ function SubGrid() {
 								></img>
 								<button
 									id={currNews.id}
-									onClick={getSubNews}
 									className="absolute opacity-0 text-gray-400 group-hover:opacity-100 border-2 text-xs rounded-xl px-2 py-0.5 bg-white dark:bg-white/100"
 								>
 									해지하기
@@ -78,10 +62,15 @@ function SubGrid() {
 				setCurrentPage={setCurrentPage}
 				isGrid={true}
 			/>
-			{target && <Unsubscription target={target} setTarget={setTarget} getNews={getSubNews} />}
+			{target && (
+				<Unsubscription
+					target={target}
+					setTarget={setTarget}
+					getNews={() => getSubNews(setSubNews)}
+				/>
+			)}
 		</>
 	);
 }
 
 export default SubGrid;
-

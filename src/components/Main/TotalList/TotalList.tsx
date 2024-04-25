@@ -5,20 +5,10 @@ import Swiper from "../shared-components/Swiper";
 import { handleSubscription } from "../../../utility/subscription";
 import { ViewContext } from "../ViewProvider";
 import { Unsubscription, Subscription } from "../shared-components/Subscription";
+import { getTotalNews } from "../../../utility/newsSetting";
 
-const SERVER = process.env.REACT_APP_JSON_SERVER;
 const ZERO = 0;
 const LAST_PAGE = 213;
-
-const fetchTotalNews = async () => {
-	try {
-		const res = await fetch(`${SERVER}/news`);
-		const totalNews = await res.json();
-		return totalNews;
-	} catch (error) {
-		console.error(error);
-	}
-};
 
 function TotalList() {
 	const [totalNews, setTotalNews] = useState<News[]>([]);
@@ -26,13 +16,8 @@ function TotalList() {
 	const [target, setTarget] = useState<News | null>(null);
 	const [currentPage, setCurrentPage] = useState<number>(ZERO);
 
-	const getTotalListNews = async () => {
-		const totalNews = await fetchTotalNews();
-		if (totalNews) setTotalNews(totalNews);
-	};
-
 	useEffect(() => {
-		getTotalListNews();
+		getTotalNews(setTotalNews);
 	}, []);
 
 	if (!totalNews.length) return <></>;
@@ -53,7 +38,11 @@ function TotalList() {
 			/>
 			{target &&
 				(target.subscription ? (
-					<Unsubscription target={target} setTarget={setTarget} getNews={getTotalListNews} />
+					<Unsubscription
+						target={target}
+						setTarget={setTarget}
+						getNews={() => getTotalNews(setTotalNews)}
+					/>
 				) : (
 					<Subscription />
 				))}

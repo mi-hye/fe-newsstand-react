@@ -3,25 +3,11 @@ import { ViewContext } from "../ViewProvider";
 import Swiper from "../shared-components/Swiper";
 import { Subscription, Unsubscription } from "../shared-components/Subscription";
 import { handleSubscription } from "../../../utility/subscription";
+import { getTotalGridNews } from "../../../utility/newsSetting";
 
-const SERVER = process.env.REACT_APP_JSON_SERVER;
-const GRID_TOTAL_NUM = 96;
 const CELL_COUNT = 24;
 const ZERO = 0;
 const LAST_PAGE = 3;
-
-const fetchTotalNews = async () => {
-	try {
-		const res = await fetch(`${SERVER}/news`);
-		const totalNews = await res.json();
-		return totalNews;
-	} catch (error) {
-		console.error(error);
-	}
-};
-
-const suffleGridNews = (news: News[]) =>
-	news.slice(ZERO, GRID_TOTAL_NUM).sort(() => Math.random() - 0.5);
 
 function TotalGrid() {
 	const [totalNews, setTotalNews] = useState<News[]>([]);
@@ -30,13 +16,8 @@ function TotalGrid() {
 	const [target, setTarget] = useState<News | null>(null);
 	const startIdx = currentPage * CELL_COUNT;
 
-	const getTotalGridNews = async () => {
-		const totalNews = await fetchTotalNews();
-		if (totalNews) setTotalNews(suffleGridNews(totalNews));
-	};
-
 	useEffect(() => {
-		getTotalGridNews();
+		getTotalGridNews(setTotalNews);
 	}, []);
 
 	if (!totalNews.length) return <></>;
@@ -76,7 +57,11 @@ function TotalGrid() {
 			/>
 			{target &&
 				(target.subscription ? (
-					<Unsubscription target={target} setTarget={setTarget} getNews={getTotalGridNews} />
+					<Unsubscription
+						target={target}
+						setTarget={setTarget}
+						getNews={() => getTotalGridNews(setTotalNews)}
+					/>
 				) : (
 					<Subscription />
 				))}

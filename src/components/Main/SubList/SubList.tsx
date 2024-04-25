@@ -5,23 +5,13 @@ import Swiper from "../shared-components/Swiper";
 import { ViewContext } from "../ViewProvider";
 import { handleSubscription } from "../../../utility/subscription";
 import { Unsubscription } from "../shared-components/Subscription";
+import { getSubNews } from "../../../utility/newsSetting";
 
 interface Props {
 	page: boolean | undefined;
 }
 
-const SERVER = process.env.REACT_APP_JSON_SERVER;
 const ZERO = 0;
-
-const fetchSubNews = async () => {
-	try {
-		const res = await fetch(`${SERVER}/subscribe`);
-		const subNews = await res.json();
-		return subNews;
-	} catch (error) {
-		console.error(error);
-	}
-};
 
 function SubList({ page }: Props) {
 	const [subNews, setSubNews] = useState<News[]>([]);
@@ -29,13 +19,8 @@ function SubList({ page }: Props) {
 	const [, dispatch] = useContext(ViewContext);
 	const [currCategoryIdx, setcurrCategoryIdx] = useState<number>(ZERO);
 
-	const getSubNews = async () => {
-		const subNews = await fetchSubNews();
-		if (subNews) setSubNews(subNews);
-	};
-
 	useEffect(() => {
-		getSubNews();
+		getSubNews(setSubNews);
 	}, []);
 
 	useEffect(() => {
@@ -67,7 +52,13 @@ function SubList({ page }: Props) {
 				setCurrentPage={setcurrCategoryIdx}
 				isGrid={false}
 			></Swiper>
-			{target && <Unsubscription target={target} setTarget={setTarget} getNews={getSubNews} />}
+			{target && (
+				<Unsubscription
+					target={target}
+					setTarget={setTarget}
+					getNews={() => getSubNews(setSubNews)}
+				/>
+			)}
 		</>
 	);
 }
