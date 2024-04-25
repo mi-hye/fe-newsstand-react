@@ -5,22 +5,42 @@ import Swiper from "../shared-components/Swiper";
 import { Subscription, Unsubscription } from "../shared-components/Subscription";
 import { handleSubscription } from "../../../utility/subscription";
 
+const SERVER = process.env.REACT_APP_JSON_SERVER;
 const GRID_TOTAL_NUM = 96;
 const CELL_COUNT = 24;
 const ZERO = 0;
 const LAST_PAGE = 3;
 
-const getTotalGridNews = (news: News[]) => news.slice(ZERO, GRID_TOTAL_NUM); //.sort(() => Math.random() - 0.5);
+const fetchTotalNews = async () => {
+	try {
+		const res = await fetch(`${SERVER}/news`);
+		const totalNews = await res.json();
+		return totalNews;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+const suffleGridNews = (news: News[]) =>
+	news.slice(ZERO, GRID_TOTAL_NUM).sort(() => Math.random() - 0.5);
 
 function TotalGrid() {
+	const [totalNews, setTotalNews] = useState<News[]>([]);
 	const [, dispatch] = useContext(ViewContext);
-	const [news] = useContext(NewsContext);
 	const [currentPage, setCurrentPage] = useState<number>(ZERO);
 	const [target, setTarget] = useState<News | null>(null);
-	if (!news.length) return <></>;
-
 	const startIdx = currentPage * CELL_COUNT;
-	const gridNews = getTotalGridNews(news);
+
+	const getTotalGridNews = async () => {
+		const totalNews = await fetchTotalNews();
+		if (totalNews) setTotalNews(suffleGridNews(totalNews));
+	};
+
+	useEffect(() => {
+		getTotalGridNews();
+	}, []);
+
+	if (!totalNews.length) return <></>;
 	return (
 		<>
 			<div
@@ -28,7 +48,7 @@ function TotalGrid() {
 				className="border-t-2 border-l-2 border-customGray dark:border-white/40 h-full grid grid-rows-4 grid-cols-6"
 			>
 				{Array.from({ length: CELL_COUNT }).map((_, i) => {
-					const currNews = gridNews[startIdx + i];
+					const currNews = totalNews[startIdx + i];
 					return (
 						<div
 							key={currNews.id}
