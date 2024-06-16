@@ -7,7 +7,9 @@
   <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
   <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
   </div>
----
+  
+-----
+
 ### 공부한 것 메모
 
 - 리액트 훅은 비동기 적으로 실행된다.
