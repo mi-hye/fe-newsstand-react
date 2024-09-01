@@ -9,6 +9,12 @@ const PORT = process.env.PORT;
 
 app.use(cors());
 
+app.use(
+	cors({
+		origin: "http://192.168.108.1:3000", // 허용할 클라이언트 도메인
+	})
+);
+
 app.get("/news", (_, res: Response) => {
 	const { news } = readDatabase();
 	res.json(news);
