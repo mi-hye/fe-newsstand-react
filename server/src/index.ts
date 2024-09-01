@@ -8,9 +8,16 @@ dotenv.config();
 
 app.use(cors());
 
-app.get("/news", (_, res: Response) => {
+app.get("/news", (req: Request, res: Response) => {
 	const { news } = readDatabase();
-	res.json(news);
+	const category = req.query.category;
+	if (!category) {
+		res.json(news);
+		return;
+	}
+
+	const categoriedNews = news.filter((newsData: News) => newsData.category === category);
+	res.json(categoriedNews);
 });
 
 app.get("/subscribe", (_, res: Response) => {
