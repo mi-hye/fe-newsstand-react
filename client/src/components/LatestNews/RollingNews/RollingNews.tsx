@@ -36,7 +36,7 @@ function SingleHeadline({ animate, news }: SingleHeadlineProps) {
 		setInterval(() => {
 			setSingleHeadline(getRandomSingleHeadline(news));
 		}, ANIMATION_DELAY);
-	}, []);
+	}, [news]);
 
 	if (!singleHeadline) return <></>;
 	return (
