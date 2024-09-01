@@ -1,4 +1,4 @@
-const SERVER = process.env.REACT_APP_JSON_SERVER;
+const SERVER = process.env.REACT_APP_SERVER;
 const GRID_TOTAL_NUM = 96;
 const ZERO = 0;
 const suffleGridNews = (news: News[]) =>

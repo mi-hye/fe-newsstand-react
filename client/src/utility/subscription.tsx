@@ -5,7 +5,7 @@ interface Action {
 	payload?: true | undefined;
 }
 
-const SERVER = process.env.REACT_APP_JSON_SERVER;
+const SERVER = process.env.REACT_APP_SERVER;
 const MODAL_DELAY = 1000;
 
 const fetchSubscribe = (targetNews: News, id: string) => {

@@ -10,7 +10,7 @@ interface CategoryInfo {
 interface Props {
 	children: React.ReactNode;
 }
-const SERVER = process.env.REACT_APP_JSON_SERVER;
+const SERVER = process.env.REACT_APP_SERVER;
 const NewsContext = createContext<[{}]>([{}]);
 
 const APIs = {
