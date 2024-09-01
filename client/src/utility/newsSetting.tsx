@@ -1,4 +1,4 @@
-const SERVER = process.env.REACT_APP_JSON_SERVER;
+const SERVER = process.env.REACT_APP_SERVER;
 const GRID_TOTAL_NUM = 96;
 const ZERO = 0;
 const suffleGridNews = (news: News[]) =>
@@ -6,8 +6,14 @@ const suffleGridNews = (news: News[]) =>
 
 const fetchTotalNews = async () => {
 	try {
-		const res = await fetch(`${SERVER}/news`);
+		const res = await fetch(`${SERVER}/news`, {
+			method: "GET",
+			mode: "cors",
+		});
+		console.log("res: ", SERVER);
+
 		const totalNews = await res.json();
+		console.log("totalNews: ", totalNews);
 		return totalNews;
 	} catch (error) {
 		console.error(error);
