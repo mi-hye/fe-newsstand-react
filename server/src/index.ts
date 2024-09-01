@@ -7,9 +7,14 @@ const app = express();
 dotenv.config();
 const PORT = process.env.PORT;
 
+app.use((req, res, next) => {
+	console.log(`Request received: ${req.method} ${req.url}`);
+	next();
+});
+
 app.use(
 	cors({
-		origin: "*", // 모든 출처 허용 옵션. true 를 써도 된다.
+		origin: "https://192.168.108.1:3000/",
 	})
 );
 
