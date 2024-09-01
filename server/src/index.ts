@@ -7,11 +7,9 @@ const app = express();
 dotenv.config();
 const PORT = process.env.PORT;
 
-app.use(cors());
-
 app.use(
 	cors({
-		origin: "http://192.168.108.1:3000", // 허용할 클라이언트 도메인
+		origin: "*", // 모든 출처 허용 옵션. true 를 써도 된다.
 	})
 );
 
