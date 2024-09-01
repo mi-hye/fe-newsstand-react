@@ -5,7 +5,6 @@ import readDatabase from "./helper/getNews";
 
 const app = express();
 dotenv.config();
-const PORT = process.env.PORT;
 
 app.use(cors());
 
