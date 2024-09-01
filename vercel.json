@@ -1,0 +1,12 @@
+{
+	"projects": [
+		{
+			"name": "news-stand-client",
+			"path": "client"
+		},
+		{
+			"name": "news-stand-server",
+			"path": "server"
+		}
+	]
+}
