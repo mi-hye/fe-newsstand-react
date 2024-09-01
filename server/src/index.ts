@@ -14,4 +14,5 @@ app.get("/news", (_, res: Response) => {
 	res.json(news);
 });
 
+app.listen(PORT, () => console.log("서버 응답", PORT));
 module.exports = app; // Vercel에서 서버리스 함수로 인식
