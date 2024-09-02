@@ -20,9 +20,16 @@ app.get("/news", (req: Request, res: Response) => {
 	res.json(categoriedNews);
 });
 
+app.get("/news/:id", (req: Request, res: Response) => {
+	const { id } = req.params;
+	console.log(id); //DELETE
+});
+
 app.get("/subscribe", (_, res: Response) => {
 	const { subscribe } = readDatabase();
 	res.json(subscribe);
 });
 
+const PORT = process.env.PORT; //DELETE
+app.listen(PORT, () => console.log("서버응답", PORT));
 module.exports = app; // Vercel에서 서버리스 함수로 인식
