@@ -34,13 +34,15 @@ function SingleNews({ singleNews }: Props) {
 						{headline.title}
 					</a>
 				</div>
-				<ul className="h-full w-[60%] mx-4">
+				<ul className="h-full w-[60%] max-w-[550px] mx-4 text-gray-700 dark:text-white/70">
 					{sideNews.map((news, i) => (
-						<li key={i} className={`${i > 0 ? "my-4" : ""}`}>
-							<a
-								className="text-gray-700 dark:text-white/70 text-sm hover:underline"
-								href={news.href}
-							>
+						<li
+							key={i}
+							className={`${
+								i > 0 ? "my-4" : ""
+							} w-full overflow-hidden whitespace-nowrap text-ellipsis`}
+						>
+							<a className=" text-sm hover:underline" href={news.href}>
 								{news.title}
 							</a>
 						</li>
