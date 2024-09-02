@@ -3,7 +3,7 @@
 	"news": [
 		{
 			"id": "2eef",
-			"subscription": true,
+			"subscription": false,
 			"pressName": "서울파이낸스",
 			"logoImageSrc": "https://s.pstatic.net/static/newsstand/2020/logo/light/0604/824.png",
 			"editedTime": "04월 15일 09:50 직접 편집",

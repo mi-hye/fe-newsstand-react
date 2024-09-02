@@ -8,4 +8,4 @@ const readDatabase = () => {
 	return { subscribe, news };
 };
 
-export default readDatabase;
+export { readDatabase };
