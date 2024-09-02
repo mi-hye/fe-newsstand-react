@@ -7,6 +7,7 @@ const app = express();
 dotenv.config();
 
 app.use(cors());
+app.use(express.json()); //요청 본문 파싱을 위한 미들웨어 설정
 app.use("/", APIRouter);
 
 const PORT = process.env.PORT; //DELETE

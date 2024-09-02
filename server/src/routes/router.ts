@@ -19,29 +19,35 @@ router.get("/news", (req: Request, res: Response) => {
 router.get("/news/:id", (req: Request, res: Response) => {
 	const { news } = readDatabase();
 	const { id } = req.params;
-	const target = news.filter((newsData: News) => newsData.id === id);
+	const target = news.find((newsData: News) => newsData.id === id);
 	res.json(target);
 });
 
 router.put("/news/:id", (req: Request, res: Response) => {
 	const data: DBData = readDatabase();
 	const { id } = req.params;
-	const target = data.news.find((newsData: News) => newsData.id === id);
-
-	if (!target) {
+	const targetIdx = data.news.findIndex((newsData: News) => newsData.id === id);
+	if (!targetIdx) {
 		res.json({ message: "업데이트 실패" });
 		return;
 	}
 
-	target.subscription = true;
+	data.news[targetIdx] = req.body;
 	writeDatabase(data);
-	console.log("id: ", id);
+	res.json({ message: "업데이트 성공" });
 });
 
 //About /subscribe
 router.get("/subscribe", (_, res: Response) => {
 	const { subscribe } = readDatabase();
 	res.json(subscribe);
+});
+
+router.post("/subscribe", (req: Request, res: Response) => {
+	const data: DBData = readDatabase();
+	data.subscribe.push(req.body);
+	writeDatabase(data);
+	res.json({ message: "추가 성공" });
 });
 
 export default router;
