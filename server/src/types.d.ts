@@ -19,3 +19,9 @@ interface News {
 	headline: Headline;
 	sideNews: SideNews[];
 }
+
+
+interface DBData {
+	subscribe: News[];
+	news: News[];
+}
