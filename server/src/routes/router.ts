@@ -50,4 +50,13 @@ router.post("/subscribe", (req: Request, res: Response) => {
 	res.json({ message: "추가 성공" });
 });
 
+router.delete("/subscribe/:id", (req: Request, res: Response) => {
+	const data: DBData = readDatabase();
+	const { id } = req.params;
+	const deletedSubscribe = data.subscribe.filter((news: News) => news.id !== id);
+	data.subscribe = deletedSubscribe;
+	writeDatabase(data);
+	res.json({ message: "삭제 성공" });
+});
+
 export default router;
