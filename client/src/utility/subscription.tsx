@@ -23,10 +23,6 @@ const fetchUnsubscribe = async (targetNews: News, id: string) => {
 	await updateNews(targetNews, id);
 	fetch(`${SERVER}/subscribe/${id}`, {
 		method: "DELETE",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(targetNews),
 	});
 };
 
