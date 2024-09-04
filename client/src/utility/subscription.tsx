@@ -55,7 +55,6 @@ async function handleSubscription(
 
 	const targetNews = await fetchTargetNews($target.id);
 	if (!targetNews) return;
-
 	setTarget(targetNews);
 	if (!targetNews.subscription) subscribe(targetNews, $target.id, setTarget, dispatch);
 }
