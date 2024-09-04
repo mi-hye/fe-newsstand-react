@@ -8,24 +8,6 @@ interface Action {
 const SERVER = process.env.REACT_APP_SERVER;
 const MODAL_DELAY = 2000;
 
-const fetchSubscribe = async (targetNews: News, id: string) => {
-	await updateNews(targetNews, id);
-	fetch(`${SERVER}/subscribe`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(targetNews),
-	});
-};
-
-const fetchUnsubscribe = async (targetNews: News, id: string) => {
-	await updateNews(targetNews, id);
-	fetch(`${SERVER}/subscribe/${id}`, {
-		method: "DELETE",
-	});
-};
-
 const updateNews = (targetNews: News, id: string) =>
 	fetch(`${SERVER}/news/${id}`, {
 		method: "PUT",
@@ -61,7 +43,7 @@ async function handleSubscription(
 
 async function subscribe(targetNews: News, id: string, setTarget: SetTarget, dispatch: Dispatch) {
 	const updatetargetNews = { ...targetNews, subscription: true };
-	await fetchSubscribe(updatetargetNews, id);
+	await updateNews(updatetargetNews, id);
 	setTimeout(() => {
 		setTarget(null);
 		dispatch({ type: "SET_VIEW_SUB", payload: true });
@@ -70,7 +52,7 @@ async function subscribe(targetNews: News, id: string, setTarget: SetTarget, dis
 
 async function unsubscribe(targetNews: News, id: string, setTarget: SetTarget) {
 	const updatetargetNews = { ...targetNews, subscription: false };
-	await fetchUnsubscribe(updatetargetNews, id);
+	await updateNews(updatetargetNews, id);
 	setTarget(null);
 }
 

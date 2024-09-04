@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import saveJSON from "./saveJSON.js";
+import saveDB from "./saveDB.mjs";
 
 const URL = "https://naver.com/";
 const BROWSER_WIDTH = 1280;
@@ -134,21 +134,15 @@ const crawlNewsList = async (page) => {
 const crawlNews = async () => {
 	const browser = await puppeteer.launch({ headless: false });
 	const page = await browser.newPage();
-	const newsResult = {
-		subscribe: [],
-		news: [],
-	};
-
 	await page.goto(URL);
 	await page.setViewport({ width: BROWSER_WIDTH, height: BROWSER_HEIGHT });
 	await page.click(ST.LIST_VIEW);
-	newsResult.news = await crawlNewsList(page);
+	const newsResult = await crawlNewsList(page);
 	browser.close();
 	return newsResult;
 };
 
-const data = await crawlNews();
-saveJSON("test", data);
+const newsResult = await crawlNews();
+saveDB(newsResult);
 
-//실행 패키지 제이슨에 type:"module" 추가 후
-//node crawlling/NewsCrawler.js
+//파일 실행 ./crawlling/run_crawler_saveDB.sh
