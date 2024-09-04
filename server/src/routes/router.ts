@@ -18,7 +18,7 @@ router.get("/news", async (req: Request, res: Response) => {
 		res.json(categoriedNews);
 	} catch (error) {
 		console.error("데이터 패치 에러:", error);
-		res.status(500).json({ message: "Internal server error" });
+		res.status(500).json({ message: "서버 에러" });
 	}
 });
 
@@ -31,7 +31,7 @@ router.get("/news/:id", async (req: Request, res: Response) => {
 		res.json(target);
 	} catch (error) {
 		console.error("데이터 패치 에러:", error);
-		res.status(500).json({ message: "Internal server error" });
+		res.status(500).json({ message: "서버 에러" });
 	}
 });
 
@@ -53,7 +53,7 @@ router.put("/news/:id", async (req: Request, res: Response) => {
 		res.json({ message: "업데이트 성공" });
 	} catch (error) {
 		console.error("데이터 패치 에러:", error);
-		res.status(500).json({ message: "Internal server error" });
+		res.status(500).json({ message: "서버 에러" });
 	}
 });
 
@@ -66,7 +66,7 @@ router.get("/subscribe", async (_, res: Response) => {
 		res.json(subscribe);
 	} catch (error) {
 		console.error("데이터 패치 에러:", error);
-		res.status(500).json({ message: "Internal server error" });
+		res.status(500).json({ message: "서버 에러" });
 	}
 });
 
