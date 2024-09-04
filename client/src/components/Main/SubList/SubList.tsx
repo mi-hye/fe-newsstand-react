@@ -24,7 +24,7 @@ function SubList({ page }: Props) {
 	}, []);
 
 	useEffect(() => {
-		if (subNews.length) page && setcurrCategoryIdx(subNews.length - 1);
+		if (subNews.length) page && setcurrCategoryIdx(0);
 	}, [page, subNews]);
 
 	if (!subNews.length || subNews.length <= currCategoryIdx)
