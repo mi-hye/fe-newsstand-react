@@ -17,7 +17,7 @@ router.get("/news", async (req: Request, res: Response) => {
 		const categoriedNews = news.filter((newsData: News) => newsData.category === category);
 		res.json(categoriedNews);
 	} catch (error) {
-		console.error("Error fetching data:", error);
+		console.error("데이터 패치 에러:", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 });
@@ -30,7 +30,7 @@ router.get("/news/:id", async (req: Request, res: Response) => {
 		const target = await collection.findOne({ id });
 		res.json(target);
 	} catch (error) {
-		console.error("Error fetching data:", error);
+		console.error("데이터 패치 에러:", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 });
@@ -47,11 +47,12 @@ router.put("/news/:id", async (req: Request, res: Response) => {
 		);
 
 		if (result.matchedCount === 0) {
-			return res.status(404).json({ message: "해당하는 뉴스가 없음" });
+			res.status(404).json({ message: "해당하는 뉴스가 없음" });
+			return;
 		}
 		res.json({ message: "업데이트 성공" });
 	} catch (error) {
-		console.error("Error fetching data:", error);
+		console.error("데이터 패치 에러:", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 });
@@ -60,11 +61,11 @@ router.put("/news/:id", async (req: Request, res: Response) => {
 router.get("/subscribe", async (_, res: Response) => {
 	try {
 		const { db } = await connectDB();
-		const collection = db.collection("news"); // 사용할 컬렉션
+		const collection = db.collection("news");
 		const subscribe = await collection.find({ subscription: true }).toArray();
 		res.json(subscribe);
 	} catch (error) {
-		console.error("Error fetching data:", error);
+		console.error("데이터 패치 에러:", error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 });
