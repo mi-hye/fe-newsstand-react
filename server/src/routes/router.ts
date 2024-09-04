@@ -27,11 +27,10 @@ router.put("/news/:id", (req: Request, res: Response) => {
 	const data: DBData = readDatabase();
 	const { id } = req.params;
 	const targetIdx = data.news.findIndex((newsData: News) => newsData.id === id);
-	if (!targetIdx) {
+	if (!targetIdx && targetIdx !== 0) {
 		res.json({ message: "업데이트 실패" });
 		return;
 	}
-
 	data.news[targetIdx] = req.body;
 	writeDatabase(data);
 	res.json({ message: "업데이트 성공" });
