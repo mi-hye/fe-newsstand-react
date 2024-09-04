@@ -6,27 +6,32 @@ interface Action {
 }
 
 const SERVER = process.env.REACT_APP_SERVER;
-const MODAL_DELAY = 1000;
+const MODAL_DELAY = 2000;
 
-const fetchSubscribe = (targetNews: News, id: string) => {
-	updateNews(targetNews, id);
+const fetchSubscribe = async (targetNews: News, id: string) => {
+	await updateNews(targetNews, id);
 	fetch(`${SERVER}/subscribe`, {
 		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
 		body: JSON.stringify(targetNews),
 	});
 };
 
 const fetchUnsubscribe = async (targetNews: News, id: string) => {
-	updateNews(targetNews, id);
-	await fetch(`${SERVER}/subscribe/${id}`, {
+	await updateNews(targetNews, id);
+	fetch(`${SERVER}/subscribe/${id}`, {
 		method: "DELETE",
-		body: JSON.stringify(targetNews),
 	});
 };
 
 const updateNews = (targetNews: News, id: string) =>
 	fetch(`${SERVER}/news/${id}`, {
 		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
 		body: JSON.stringify(targetNews),
 	});
 
@@ -50,14 +55,13 @@ async function handleSubscription(
 
 	const targetNews = await fetchTargetNews($target.id);
 	if (!targetNews) return;
-
 	setTarget(targetNews);
 	if (!targetNews.subscription) subscribe(targetNews, $target.id, setTarget, dispatch);
 }
 
-function subscribe(targetNews: News, id: string, setTarget: SetTarget, dispatch: Dispatch) {
+async function subscribe(targetNews: News, id: string, setTarget: SetTarget, dispatch: Dispatch) {
 	const updatetargetNews = { ...targetNews, subscription: true };
-	fetchSubscribe(updatetargetNews, id);
+	await fetchSubscribe(updatetargetNews, id);
 	setTimeout(() => {
 		setTarget(null);
 		dispatch({ type: "SET_VIEW_SUB", payload: true });

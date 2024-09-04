@@ -6,14 +6,8 @@ const suffleGridNews = (news: News[]) =>
 
 const fetchTotalNews = async () => {
 	try {
-		const res = await fetch(`${SERVER}/news`, {
-			method: "GET",
-			mode: "cors",
-		});
-		console.log("res: ", SERVER);
-
+		const res = await fetch(`${SERVER}/news`);
 		const totalNews = await res.json();
-		console.log("totalNews: ", totalNews);
 		return totalNews;
 	} catch (error) {
 		console.error(error);
